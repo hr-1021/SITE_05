@@ -1,0 +1,660 @@
+html {
+  font-size: 100%;
+}
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  color: #121212;
+}
+
+/* サイドメニューの横幅分だけ左にmarginをとる */
+.container {
+  margin-left: 300px;
+}
+
+.wrapper {
+  max-width: 900px;
+  padding: 80px 20px;
+  margin: 0 auto;
+}
+
+.site-title {
+  width: 200px;
+  margin-bottom: 30px;
+
+  a {
+    display: block;
+  }
+}
+
+/*
+セクションタイトル用の共通クラス
+両サイドの線は疑似要素で作成して、Flexboxで横並びに配置
+※beforeが左の線、afterが右の線
+*/
+.sec-title {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-bottom: 60px;
+  text-align: center;
+  display: flex; //ブロック要素を横並びにするプロパティ→子要素がブロック要素になる
+  justify-content: space-between;
+  align-items: center;
+
+  &::before,
+  &::after {
+    content: "";
+    // display: inline-block;
+    width: 28%;
+    border-top: 1px solid;
+  }
+}
+
+/*---------------------------------
+ヘッダー
+---------------------------------*/
+#header {
+  width: 300px;
+  height: 100%;
+  background-color: #fff;
+  padding: 40px 50px 30px 45px;
+  position: fixed; //画面左上に固定することで横並びになったように表示させてる
+  top: 0;
+  /* 画面の高さが低くてメニューが隠れてしまった場合に、縦スクロールが出るよう設定 */
+  overflow-y: auto;
+
+  li {
+    font-size: 0.875rem;
+    padding: 10px 0;
+  }
+
+  .nav-menu {
+    margin-bottom: 80px;
+  }
+}
+
+/*---------------------------------
+Video
+---------------------------------*/
+/*
+動画を全画面表示
+*/
+#video {
+  width: 100%;
+  height: 100vh;
+
+  /*
+「position: fixed;」で動画を固定し、「top: -220px;」で表示位置を調整
+z-indexでマイナスを設定して、他のコンテンツの下に隠れるようにする
+*/
+  .bg-video {
+    position: fixed;
+    top: -220px;
+    z-index: -10;
+  }
+}
+
+/*---------------------------------
+Project
+---------------------------------*/
+#project {
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
+  color: #fff;
+
+  .list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    li {
+      width: 47%;
+      border: solid 1px #fff;
+      margin-bottom: 50px;
+      position: relative;
+
+      &:nth-child(n + 3) {
+        margin-bottom: 0;
+      }
+
+      a {
+        display: block;
+
+        &::after {
+          content: "";
+          /* offset-x | offset-y | blur-radius（ぼかしの大きさ） | spread-radius（影の大きさ） | color | inset（内側に影）*/
+          box-shadow: 0 -30px 15px -1px #2e2e2e inset;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+        }
+
+        .name {
+          font-size: 0.75rem;
+          color: #fff;
+          position: absolute;
+          bottom: 4px;
+          left: 7px;
+          z-index: 5;
+        }
+      }
+    }
+  }
+}
+
+/*---------------------------------
+Feature
+---------------------------------*/
+#feature {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding-bottom: 80px;
+
+  .list {
+    display: flex;
+    justify-content: space-between;
+
+    li {
+      width: 30%;
+      font-size: 0.875rem;
+      text-align: center;
+
+      a {
+        // display: inline-block;
+        // width: 258px;
+        // height: 258px;
+        // border-radius: 50%;
+        // border: 1px solid #333;
+        // line-height: 258px; //縦中央寄せ
+        // margin-bottom: 15px;
+
+        display: block;
+        width: 100%;
+        color: #fff;
+        border: solid 1px #fff;
+        border-radius: 50%;
+        /* テキストの高さ20px→上下10pxずつ、
+            枠線の1pxを差し引く */
+        padding: calc(50% - 11px) 0;
+        margin-bottom: 15px;
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+          content: "";
+          width: 100%;
+          height: 100%;
+          background-color: #fff;
+          position: absolute;
+          top: 0;
+          left: -100%;
+          opacity: 0.3;
+          transition: 0.5s;
+        }
+
+        &:hover::before {
+          left: 0;
+        }
+      }
+
+      .title {
+        font-size: 1rem;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+    }
+  }
+}
+
+/*---------------------------------
+Flow
+---------------------------------*/
+#flow {
+  background-color: #fff;
+  padding-top: 40px;
+
+  .step {
+    display: flex;
+    margin-top: 60px;
+
+    .figure {
+      position: relative;
+
+      /* 図形下の黄色い棒線を作成 */
+      &::before {
+        content: "";
+        width: 50px;
+        height: 600px;
+        background-color: #FFDD00;
+        position: absolute;
+        top: 0;
+        left: 75px;
+      }
+
+      /* 図形の四角部分を作成 */
+      li {
+        width: 200px;
+        height: 80px;
+        background-color: #414141;
+        color: #fff;
+        font-size: 0.875rem;
+        line-height: 80px;
+        text-align: center;
+        margin-bottom: 60px;
+        position: relative;
+
+        /*
+        図形の三角部分を疑似要素で作成
+        「position」を使用して、四角の下に配置
+        */
+        &::before {
+          content: "";
+          border-top: 30px solid #414141;
+          border-right: 100px solid transparent;
+          border-left: 100px solid transparent;
+          position: absolute;
+          top: 80px;
+          left: 0;
+          right: 0;
+          margin: 0 auto;
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .description {
+      margin-left: 10%;
+
+      dt {
+        font-size: 1.25rem;
+        border-bottom: solid 1px #121212;
+        padding-bottom: 8px;
+        margin-bottom: 10px;
+        position: relative;
+
+        /*
+        丸数字を作成
+        「position」を使用して、タイトルの左側に配置
+        */
+        span {
+          width: 35px;
+          height: 35px;
+          border-radius: 50%;
+          background-color: #414141;
+          color: #fff;
+          font-size: 1rem;
+          text-align: center;
+          line-height: 35px;
+          position: absolute;
+          bottom: 0;
+          left: -45px;
+        }
+      }
+
+      dd {
+        margin-bottom: 43px;
+        // background-color: red;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+/*---------------------------------
+Contact
+---------------------------------*/
+#contact {
+  background-color: #fff;
+  padding-bottom: 80px;
+
+  .link {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 60px;
+
+    .item {
+      width: 30%;
+      font-size: 0.875rem;
+      border: 1px solid #121212;
+      padding: 50px 0;
+      text-align: center;
+      position: relative;
+      transition: 0.1s;
+
+      &::before {
+        content: "";
+        border-top: 20px solid transparent;
+        border-right: 20px solid #121212;
+        position: absolute;
+        bottom: 4px;
+        right: 4px;
+      }
+
+      &:hover {
+        outline: solid 3px #121212;
+      }
+
+      img {
+        margin-bottom: 5px;
+      }
+    }
+  }
+}
+
+/*---------------------------------
+Footer
+---------------------------------*/
+#footer {
+  background-color: #121212;
+  color: #fff;
+  padding: 20px 0;
+
+  .menu {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0 60px 0;
+
+    li {
+      font-size: 0.875rem;
+      border-right: 1px solid #fff;
+      padding: 0 20px;
+
+      &:last-child {
+        border-right: none;
+      }
+
+      a {
+        color: #fff;
+      }
+    }
+  }
+
+  .copyright {
+    font-size: 0.75rem;
+    text-align: center;
+  }
+}
+
+/*---------------------------------
+To-Top btn
+---------------------------------*/
+#to-top {
+  background-color: #121212;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+
+  &::after {
+    content: "";
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/*---------------------------------
+SP
+---------------------------------*/
+@media screen and (max-width: 960px) {
+
+  .container {
+    margin-left: 0;
+  }
+
+  .wrapper {
+    padding: 63px 20px;
+  }
+
+  .site-title {
+    width: 187px;
+    margin-bottom: 8px;
+    position: relative;
+    left: 18px;
+    top: 10px;
+  }
+
+  .sec-title {
+    font-size: 1.25rem;
+    margin-bottom: 37px;
+
+    &::before,
+    &::after {
+      content: "";
+      width: 17.9%;
+    }
+  }
+
+  /*---------------------------------
+  ヘッダー
+  ---------------------------------*/
+  #header {
+    width: 100%;
+    height: 72px;
+    padding: 0;
+    z-index: 10;
+  }
+
+  #navi {
+    background-color: #fff;
+    width: 300px;
+    padding: 35px 25px; //★
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: -300px;
+    opacity: 0;
+    overflow: auto;
+    transition: 0.5s; //変化が終わるまでの時間
+    z-index: 20;
+
+    .nav-menu {
+      margin-bottom: 30px;
+
+      li {
+        margin-bottom: 25px; //★
+      }
+    }
+  }
+
+  .open #navi {
+    left: 0;
+    opacity: 1;
+  }
+
+  .hamburger {
+    width: 30px;
+    height: 30px;
+    position: fixed;
+    top: 27px;
+    right: 18px;
+    z-index: 20;
+    transition: 0.5s;
+    cursor: pointer;
+
+    span {
+      display: block;
+      width: 30px;
+      height: 2px;
+      background-color: #121212;
+      position: absolute;
+      left: 0;
+      transition: 0.5s;
+
+      &:nth-child(1) {
+        top: 4px;
+      }
+
+      &:nth-child(2) {
+        top: 14px;
+      }
+
+      &:nth-child(3) {
+        bottom: 4px;
+      }
+    }
+  }
+
+  .open .hamburger span {
+    background-color: #fff;
+
+    &:nth-child(1) {
+      transform: translateY(10px) rotate(-315deg);
+    }
+
+    &:nth-child(2) {
+      opacity: 0;
+    }
+
+    &:nth-child(3) {
+      transform: translateY(-10px) rotate(315deg);
+    }
+  }
+
+  #mask {
+    display: none;
+    transition: 0.5s;
+  }
+
+  .open #mask {
+    background-color: #000;
+    opacity: 0.7;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: block;
+    cursor: pointer;
+  }
+
+  /*---------------------------------
+  Video
+  ---------------------------------*/
+  #video {
+    height: 80vh;
+
+    .bg-video {
+      height: 528px;
+      top: 72px;
+      // left: 0;
+      // right: 0;
+      // margin: 0 auto;
+    }
+  }
+
+  /*---------------------------------
+  Project
+  ---------------------------------*/
+  #project {
+    .list {
+      flex-direction: column;
+
+      li {
+        width: 100%;
+        margin-bottom: 30px;
+
+        &:nth-child(n + 3) {
+          margin-bottom: 30px;
+        }
+      }
+    }
+  }
+
+  /*---------------------------------
+  Feature
+  ---------------------------------*/
+  #feature {
+    padding-bottom: 64px;
+
+  }
+
+  /*---------------------------------
+  Flow
+  ---------------------------------*/
+  #flow {
+    padding-top: 0;
+
+    .step {
+      flex-direction: column;
+      align-items: center;
+      margin-top: 35px;
+
+      .figure {
+        margin-bottom: 80px;
+
+        &::before {
+          /* 黄色い棒線を中央揃え */
+          left: 0;
+          right: 0;
+          margin: 0 auto;
+        }
+
+        li {
+          /* 図形四角の左右に40pxの余白ができるように大きさを調整 */
+          width: calc(100vw - 80px);
+
+          /* 図形三角を上記に伴って修正 */
+          &::before {
+            border-right: calc(50vw - 40px) solid transparent;
+            border-left: calc(50vw - 40px) solid transparent;
+          }
+        }
+      }
+
+      .description {
+        margin-left: 45px;
+      }
+    }
+  }
+
+  /*---------------------------------
+  Contact
+  ---------------------------------*/
+  #contact {
+    padding-bottom: 57px;
+
+    .link {
+      flex-direction: column;
+      align-items: center;
+      margin-top: 35px;
+
+      .item {
+        width: 60%;
+        margin-bottom: 20px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  /*---------------------------------
+  Footer
+  ---------------------------------*/
+  #footer {
+    .menu {
+      flex-wrap: wrap;
+
+      li {
+        margin-bottom: 17px;
+      }
+    }
+  }
+}
